@@ -1,9 +1,9 @@
 spring:
   datasource:
     url: jdbc:h2:mem:convive_test;MODE=MySQL;DB_CLOSE_DELAY=-1
-    usuarionombre: sa
+    username: sa
     password:
-    driver-class-nombre: org.h2.Driver
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop

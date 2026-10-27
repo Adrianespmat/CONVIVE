@@ -68,12 +68,13 @@ La pertenencia se modela como entidad propia para expresar el rol y el estado ac
 
 ## 4. Contrato REST inicial
 
-Todos los endpoints `/api/**` salvo registro y login requieren `Authorization: Bearer <JWT>`. Los nombres son orientativos tieneta aprobar el contrato definitivo.
+Todos los endpoints `/api/**` salvo registro y login requieren `Authorization: Bearer <JWT>`.
 
 | Método | Ruta | Actor | Uso |
 |---|---|---|---|
-| `POST` | `/api/auth/register` | Público | Crear cuenta. |
-| `POST` | `/api/auth/login` | Público | Validar credenciales y devolver JWT/resumen de usuario. |
+| `POST` | `/api/autenticacion/registro` | Público | Crear cuenta, aplicar BCrypt y devolver JWT/resumen de usuario. |
+| `POST` | `/api/autenticacion/login` | Público | Validar credenciales y devolver JWT/resumen de usuario. |
+| `GET` | `/api/autenticacion/yo` | Autenticado | Obtener la identidad del usuario autenticado. |
 | `GET` | `/api/users/me` | Autenticado | Consultar perfil. |
 | `PATCH` | `/api/users/me` | Autenticado | Modificar nombre permitido. |
 | `GET` | `/api/houses/me` | Miembro | Consultar piso, código según rol e integrantes. |
@@ -102,7 +103,7 @@ Todos los endpoints `/api/**` salvo registro y login requieren `Authorization: B
 - `404 Not Found` cuando el recurso no existe dentro del ámbito permitido.
 - `409 Conflict` para correo duplicado, piso activo existente o conflictos de unicidad.
 
-El formato de error debe ser homogéneo y no filtrar información sensible. No se devolverán contraseñas, tienehes BCrypt ni secretos.
+El formato de error debe ser homogéneo y no filtrar información sensible. No se devolverán contraseñas, hashes BCrypt ni secretos.
 
 ### 4.2 Ejemplo conceptual de creación de gasto
 

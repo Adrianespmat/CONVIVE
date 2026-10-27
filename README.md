@@ -4,7 +4,7 @@ Aplicación web para gestionar viviendas compartidas, gastos comunes, repartos y
 
 ## Estado actual
 
-La Fase 1 está implementada a nivel de estructura y modelo de persistencia: existe un backend Spring Boot con entidades JPA, validaciones, relaciones y repositorios, además de la configuración de MySQL. El backend ha compilado con JDK 17 y la prueba de mapeo JPA con H2 ha pasado. Todavía no se han implementado autenticación, API REST, frontend, reparto, balances ni despliegue integrado.
+La Fase 2 está implementada en el backend: existe un backend Spring Boot con entidades JPA, validaciones, autenticación BCrypt/JWT, rutas protegidas, API REST inicial y pruebas de integración. Todavía no se han implementado la gestión de pisos, gastos, reparto, balances, frontend ni despliegue integrado.
 
 La conexión real con MySQL está pendiente porque Docker no está instalado en este entorno. No se afirma que esa conexión esté probada.
 
@@ -29,7 +29,13 @@ cd convive-backend
 mvn spring-boot:run
 ```
 
-No existen todavía endpoints funcionales que probar. La Fase 2 añadirá registro, login, JWT, BCrypt y autorización.
+Endpoints de autenticación disponibles:
+
+- `POST /api/autenticacion/registro`
+- `POST /api/autenticacion/login`
+- `GET /api/autenticacion/yo` con `Authorization: Bearer <JWT>`
+
+La prueba automática de autenticación verifica el registro, el hash BCrypt, el login, la validación JWT, el acceso protegido, los correos duplicados y las credenciales incorrectas.
 
 ## Documentación
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 public class ConfiguracionValidacion {
 
     @Bean
-    MethodValidationPostProcessor methodValidationPostProcessor() {
+    static MethodValidationPostProcessor methodValidationPostProcessor() {
         return new MethodValidationPostProcessor();
     }
 }
