@@ -17,6 +17,11 @@ import java.util.Map;
 @RestControllerAdvice
 public class TratamientoErrores {
 
+    @ExceptionHandler(AccesoDenegadoException.class)
+    ResponseEntity<ErrorRespuesta> accesoDenegado(AccesoDenegadoException ex, HttpServletRequest solicitud) {
+        return respuesta(HttpStatus.FORBIDDEN, ex.getMessage(), solicitud);
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     ResponseEntity<ErrorRespuesta> credenciales(BadCredentialsException ex, HttpServletRequest solicitud) {
         return respuesta(HttpStatus.UNAUTHORIZED, "Credenciales no válidas", solicitud);

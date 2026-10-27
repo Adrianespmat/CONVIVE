@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface PisoRepository extends JpaRepository<Piso, Long> {
 
+    Optional<Piso> findByIdAndActivoTrue(Long id);
+
     boolean existsByCodigoInvitacion(String codigoInvitacion);
 
     Optional<Piso> findByCodigoInvitacionAndActivoTrue(String codigoInvitacion);

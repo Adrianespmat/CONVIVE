@@ -77,12 +77,12 @@ Todos los endpoints `/api/**` salvo registro y login requieren `Authorization: B
 | `GET` | `/api/autenticacion/yo` | Autenticado | Obtener la identidad del usuario autenticado. |
 | `GET` | `/api/users/me` | Autenticado | Consultar perfil. |
 | `PATCH` | `/api/users/me` | Autenticado | Modificar nombre permitido. |
-| `GET` | `/api/houses/me` | Miembro | Consultar piso, código según rol e integrantes. |
-| `POST` | `/api/houses` | Autenticado sin piso activo | Crear piso y alta de administrador. |
-| `POST` | `/api/houses/join` | Autenticado sin piso activo | Unirse mediante código. |
-| `PATCH` | `/api/houses/me` | Administrador | Modificar datos del piso si el anteproyecto lo confirma. |
-| `GET` | `/api/houses/me/members` | Miembro | Listar integrantes del piso. |
-| `DELETE` | `/api/houses/me/members/{userId}` | Administrador | Gestionar baja, sujeto a reglas abiertas. |
+| `GET` | `/api/pisos/mio` | Miembro | Consultar piso, código solo para administrador e integrantes. |
+| `POST` | `/api/pisos` | Autenticado sin piso activo | Crear piso y alta de administrador. |
+| `POST` | `/api/pisos/unirse` | Autenticado sin piso activo | Unirse mediante código válido. |
+| `PATCH` | `/api/pisos/mio` | Administrador | Modificar nombre y dirección del piso. |
+| `GET` | `/api/pisos/mio/integrantes` | Miembro | Listar integrantes del piso. |
+| `DELETE` | `/api/pisos/mio/integrantes/{usuarioId}` | Administrador | Dar de baja a un integrante distinto del propio administrador. |
 | `GET` | `/api/expenses` | Miembro | Listar gastos; filtros `from`, `to`, `categoria`. |
 | `POST` | `/api/expenses` | Miembro | Registrar gasto con pagador y participantes. |
 | `GET` | `/api/expenses/{id}` | Miembro | Consultar detalle de gasto del piso. |
