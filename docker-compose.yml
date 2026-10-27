@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: convive-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-convive}
+      MYSQL_USER: ${MYSQL_USER:-convive_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-change_me_local}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change_me_root_local}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - convive-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  convive-mysql-data:

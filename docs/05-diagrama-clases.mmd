@@ -1,0 +1,86 @@
+classDiagram
+    class Usuario {
+      +Long id
+      +String name
+      +String email
+      +String contrasenaHash
+      +Instant createdAt
+    }
+
+    class Piso {
+      +Long id
+      +String name
+      +String address
+      +String invitationCode
+      +Boolean activo
+    }
+
+    class Membresia {
+      +Long id
+      +Rol rol
+      +Boolean activo
+      +LocalDate joinedAt
+      +LocalDate leftAt
+    }
+
+    class Gasto {
+      +Long id
+      +String concept
+      +BigDecimal amount
+      +LocalDate date
+      +CategoriaGasto categoria
+      +Long createdBy
+    }
+
+    class ParticipanteGasto {
+      +Long id
+      +BigDecimal assignedAmount
+      +Integer participantOrder
+    }
+
+    class Rol {
+      <<enumeration>>
+      ADMINISTRADOR
+      MIEMBRO
+    }
+
+    class CategoriaGasto {
+      <<enumeration>>
+      RENT
+      FOOD
+      ELECTRICITY
+      WATER
+      INTERNET
+      OTHER
+    }
+
+    class ResumenBalance {
+      +Long userId
+      +BigDecimal paid
+      +BigDecimal assumed
+      +BigDecimal balance
+    }
+
+    class SettlementProposal {
+      +List~PagoLiquidacion~ payments
+      +Boolean informativeOnly
+    }
+
+    class PagoLiquidacion {
+      +Long debtorUsuarioId
+      +Long creditorUsuarioId
+      +BigDecimal amount
+    }
+
+    Usuario "1" --> "0..*" Membresia : tiene
+    Piso "1" --> "1..*" Membresia : contiene
+    Usuario "1" --> "0..*" Gasto : registra
+    Piso "1" --> "0..*" Gasto : contiene
+    Usuario "1" --> "0..*" Gasto : paga
+    Gasto "1" --> "1..*" ParticipanteGasto : se reparte en
+    Usuario "1" --> "0..*" ParticipanteGasto : participa
+    Membresia --> Rol
+    Gasto --> CategoriaGasto
+    ResumenBalance ..> Usuario : resume
+    SettlementProposal "1" --> "0..*" PagoLiquidacion : proposes
+    PagoLiquidacion ..> Usuario : deudor/acreedor

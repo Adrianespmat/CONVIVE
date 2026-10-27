@@ -1,0 +1,54 @@
+flowchart LR
+    V[Visitante]
+    U[Usuario autenticado]
+    A[Administrador]
+    M[Miembro]
+
+    UC1((CU-01 Registrarse))
+    UC2((CU-02 Iniciar sesión))
+    UC3((CU-03 Crear piso))
+    UC4((CU-04 Unirse a piso))
+    UC5((CU-05 Consultar piso))
+    UC6((CU-06 Gestionar miembros))
+    UC7((CU-07 Consultar panel))
+    UC8((CU-08 Consultar/filtrar gastos))
+    UC9((CU-09 Registrar gasto))
+    UC10((CU-10 Modificar gasto propio))
+    UC11((CU-11 Eliminar gasto propio))
+    UC12((CU-12 Consultar balances/liquidación))
+    UC13((CU-13 Consultar perfil))
+    UC14((CU-14 Modificar datos permitidos))
+
+    V --- UC1
+    V --- UC2
+    U --- UC3
+    U --- UC4
+    U --- UC5
+    U --- UC7
+    U --- UC8
+    U --- UC9
+    U --- UC10
+    U --- UC11
+    U --- UC12
+    U --- UC13
+    U --- UC14
+    A --- UC6
+
+    UC2 -. "sin piso" .-> UC3
+    UC2 -. "sin piso" .-> UC4
+    UC7 -. "acceso" .-> UC8
+    UC7 -. "acceso" .-> UC12
+    UC7 -. "acceso" .-> UC5
+    UC9 -. "incluye" .-> R1((Validar pertenencia y permisos))
+    UC10 -. "incluye" .-> R1
+    UC11 -. "incluye" .-> R1
+    UC9 -. "incluye" .-> R2((Calcular reparto exacto))
+    UC10 -. "incluye" .-> R2
+    UC9 -. "actualiza" .-> R3((Actualizar balances))
+    UC10 -. "actualiza" .-> R3
+    UC11 -. "actualiza" .-> R3
+
+    classDef actor fill:#e8f1ff,stroke:#2457a6,color:#102a43;
+    classDef usecase fill:#f7f7f7,stroke:#555,color:#222;
+    class V,U,A,M actor;
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12,UC13,UC14,R1,R2,R3 usecase;

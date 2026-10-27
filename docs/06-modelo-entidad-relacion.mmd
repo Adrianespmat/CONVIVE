@@ -1,0 +1,56 @@
+erDiagram
+    USERS {
+        BIGINT id PK
+        VARCHAR name
+        VARCHAR email UK
+        VARCHAR contrasena_tieneh
+        DATETIME created_at
+    }
+
+    HOUSES {
+        BIGINT id PK
+        VARCHAR name
+        VARCHAR address
+        VARCHAR invitation_code UK
+        BOOLEAN activo
+        DATETIME created_at
+    }
+
+    MIEMBROSHIPS {
+        BIGINT id PK
+        BIGINT user_id FK
+        BIGINT house_id FK
+        VARCHAR rol
+        BOOLEAN activo
+        DATE fecha_alta
+        DATE fecha_baja
+    }
+
+    EXPENSES {
+        BIGINT id PK
+        BIGINT house_id FK
+        BIGINT created_by_user_id FK
+        BIGINT pagador_user_id FK
+        VARCHAR concept
+        DECIMAL amount
+        DATE expense_date
+        VARCHAR categoria
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    EXPENSE_PARTICIPANTS {
+        BIGINT id PK
+        BIGINT expense_id FK
+        BIGINT user_id FK
+        DECIMAL assigned_amount
+        INT participant_order
+    }
+
+    USERS ||--o{ MIEMBROSHIPS : belongs
+    HOUSES ||--|{ MIEMBROSHIPS : tiene
+    HOUSES ||--o{ EXPENSES : contiene
+    USERS ||--o{ EXPENSES : registra
+    USERS ||--o{ EXPENSES : paga
+    EXPENSES ||--|{ EXPENSE_PARTICIPANTS : distributes
+    USERS ||--o{ EXPENSE_PARTICIPANTS : participa
