@@ -83,11 +83,11 @@ Todos los endpoints `/api/**` salvo registro y login requieren `Authorization: B
 | `PATCH` | `/api/pisos/mio` | Administrador | Modificar nombre y dirección del piso. |
 | `GET` | `/api/pisos/mio/integrantes` | Miembro | Listar integrantes del piso. |
 | `DELETE` | `/api/pisos/mio/integrantes/{usuarioId}` | Administrador | Dar de baja a un integrante distinto del propio administrador. |
-| `GET` | `/api/expenses` | Miembro | Listar gastos; filtros `from`, `to`, `categoria`. |
-| `POST` | `/api/expenses` | Miembro | Registrar gasto con pagador y participantes. |
-| `GET` | `/api/expenses/{id}` | Miembro | Consultar detalle de gasto del piso. |
-| `PUT` | `/api/expenses/{id}` | Propietario | Modificar gasto propio y reparto. |
-| `DELETE` | `/api/expenses/{id}` | Propietario | Eliminar gasto propio. |
+| `GET` | `/api/gastos` | Miembro | Listar gastos; filtros opcionales `desde`, `hasta`, `categoria`. |
+| `POST` | `/api/gastos` | Miembro | Registrar gasto con pagador y participantes. |
+| `GET` | `/api/gastos/{gastoId}` | Miembro | Consultar detalle de gasto del piso. |
+| `PUT` | `/api/gastos/{gastoId}` | Propietario | Modificar gasto propio y recalcular reparto. |
+| `DELETE` | `/api/gastos/{gastoId}` | Propietario | Eliminar gasto propio. |
 | `GET` | `/api/dashboard?from=&to=` | Miembro | Total del periodo, últimos gastos y balance personal. |
 | `GET` | `/api/balances` | Miembro | Pagado, asumido y balance por integrante. |
 | `GET` | `/api/balances/settlement` | Miembro | Propuesta informativa de liquidación. |
@@ -109,10 +109,10 @@ El formato de error debe ser homogéneo y no filtrar información sensible. No s
 
 ```json
 {
-  "concept": "Compra semanal",
-  "amount": "60.00",
-  "date": "2026-10-27",
-  "categoria": "FOOD",
+  "concepto": "Compra semanal",
+  "importe": "60.00",
+  "fecha": "2026-10-27",
+  "categoria": "ALIMENTACION",
   "pagadorUsuarioId": 12,
   "participantUsuarioIds": [12, 15, 18]
 }

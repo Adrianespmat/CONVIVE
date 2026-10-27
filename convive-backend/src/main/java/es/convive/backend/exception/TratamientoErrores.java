@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,6 +17,11 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class TratamientoErrores {
+
+    @ExceptionHandler(DatosGastoException.class)
+    ResponseEntity<ErrorRespuesta> datosGasto(DatosGastoException ex, HttpServletRequest solicitud) {
+        return respuesta(HttpStatus.BAD_REQUEST, ex.getMessage(), solicitud);
+    }
 
     @ExceptionHandler(AccesoDenegadoException.class)
     ResponseEntity<ErrorRespuesta> accesoDenegado(AccesoDenegadoException ex, HttpServletRequest solicitud) {
@@ -50,6 +56,11 @@ public class TratamientoErrores {
     @ExceptionHandler(ConstraintViolationException.class)
     ResponseEntity<ErrorRespuesta> restricciones(ConstraintViolationException ex, HttpServletRequest solicitud) {
         return respuesta(HttpStatus.BAD_REQUEST, "Los datos no cumplen las restricciones", solicitud);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    ResponseEntity<ErrorRespuesta> parametroNoValido(MethodArgumentTypeMismatchException ex, HttpServletRequest solicitud) {
+        return respuesta(HttpStatus.BAD_REQUEST, "Uno de los parámetros no tiene un formato válido", solicitud);
     }
 
     @ExceptionHandler(Exception.class)

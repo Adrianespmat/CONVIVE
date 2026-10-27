@@ -2,7 +2,7 @@
 
 **Fecha:** 2026-10-27  
 **Fase:** 2 — Autenticación y seguridad
-**Estado:** registro, BCrypt, login, JWT, pisos, membresías, rutas protegidas y tratamiento de errores implementados y probados; conexión real con MySQL pendiente.
+**Estado:** registro, BCrypt, login, JWT, pisos, membresías, gastos, reparto exacto, rutas protegidas y tratamiento de errores implementados y probados; conexión real con MySQL pendiente.
 
 ## Verificado en el espacio de trabajo
 
@@ -19,12 +19,13 @@
 - Resultado real: 4 pruebas, 0 fallos y 0 errores.
 - `PruebaAutenticacionTest` verifica registro, BCrypt, JWT, identidad autenticada, correo duplicado, credenciales incorrectas y ruta protegida.
 - `PruebaPisosMembresiasTest` verifica creación de piso, código de invitación, incorporación, ocultación del código a miembros, pertenencia única y permisos de administrador.
+- `PruebaGastosTest` verifica creación, filtros, validación de pertenencia, permisos del propietario y reparto de `10,00 €` en `3,34 €`, `3,33 €` y `3,33 €`.
 - `PruebaMapeoPersistenciaTest` verifica el mapeo JPA de usuario, piso y membresía.
 - Se ha ejecutado `mvn -B package -DskipTests` y se ha generado el JAR ejecutable en `convive-backend/target/`.
 - No se ha iniciado MySQL porque Docker no está instalado.
 - No se ha probado una conexión real con la base de datos.
-- El frontend, la gestión de gastos, repartos, balances y la conexión real con MySQL siguen pendientes.
+- El frontend, los balances, la liquidación y la conexión real con MySQL siguen pendientes.
 
 ## Próximo paso
 
-Probar la conexión real y el arranque contra MySQL con Docker. Después se puede iniciar la Fase 4 de gastos y reparto exacto de céntimos.
+Probar la conexión real y el arranque contra MySQL con Docker. Después se puede iniciar la Fase 5 de balances y propuesta informativa de liquidación.

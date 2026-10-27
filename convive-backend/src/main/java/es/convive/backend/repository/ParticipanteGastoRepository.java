@@ -9,5 +9,5 @@ public interface ParticipanteGastoRepository extends JpaRepository<ParticipanteG
 
     List<ParticipanteGasto> findAllByUsuarioId(Long usuarioId);
 
-    List<ParticipanteGasto> findAllByGastoIdOrderByOrdenParticipanteAsc(Long expenseId);
+    List<ParticipanteGasto> findAllByGastoIdOrderByOrdenParticipanteAsc(Long gastoId);
 }

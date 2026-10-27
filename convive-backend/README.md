@@ -37,6 +37,16 @@ Resultado verificado el 27 de octubre de 2026: compilación correcta y 4 pruebas
 
 Se impide que un usuario tenga más de un piso activo. El código de invitación se devuelve únicamente al administrador.
 
+## Endpoints de gastos
+
+- `POST /api/gastos`: crea un gasto y calcula el reparto.
+- `GET /api/gastos?desde=&hasta=&categoria=`: lista con filtros opcionales.
+- `GET /api/gastos/{gastoId}`: consulta el detalle dentro del piso activo.
+- `PUT /api/gastos/{gastoId}`: modifica un gasto creado por el usuario autenticado.
+- `DELETE /api/gastos/{gastoId}`: elimina un gasto creado por el usuario autenticado.
+
+El importe se convierte a céntimos mediante `longValueExact()`. Los céntimos sobrantes se asignan por identificador de usuario ascendente, garantizando que la suma de las participaciones coincida con el importe total.
+
 El secreto JWT se configura mediante `JWT_SECRET` y debe tener al menos 32 bytes. No se deben guardar secretos reales en Git.
 
 La conexión real con MySQL queda pendiente hasta disponer de Docker/MySQL activo.

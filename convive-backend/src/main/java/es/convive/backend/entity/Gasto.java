@@ -83,7 +83,7 @@ public class Gasto {
     public LocalDate getFecha() { return fecha; }
     public CategoriaGasto getCategoria() { return categoria; }
     public Instant getFechaCreacion() { return fechaCreacion; }
-    public Instant getUpfechadAt() { return fechaActualizacion; }
+    public Instant getFechaActualizacion() { return fechaActualizacion; }
     public List<ParticipanteGasto> getParticipantes() { return participantes; }
 
     public void setPiso(Piso piso) { this.piso = piso; }
