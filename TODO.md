@@ -27,8 +27,12 @@
 - [x] Reparto exacto en céntimos, balances y liquidación informativa.
 - [x] Perfil de usuario: consulta y modificación del nombre.
 - [x] Panel principal: total del periodo, últimos gastos y balance personal.
-- [ ] Frontend Vue 3, Bootstrap y Axios.
-- [ ] Panel principal y navegación responsive.
+- [x] Crear frontend local independiente con Vue 3, JavaScript y Vite; organizar vistas, componentes, rutas, servicios Axios y gestión de sesión.
+- [x] Integrar Bootstrap y CSS propio con interfaz en español, navegación responsive inicial, formularios, estados vacíos, mensajes y confirmaciones destructivas.
+- [x] Configurar Axios con proxy local `/api`, añadir el JWT a las peticiones privadas y proteger las rutas privadas del frontend.
+- [x] Crear las vistas iniciales de registro, inicio de sesión, creación/incorporación a piso, panel, piso e integrantes, gastos, balances, liquidación y perfil.
+- [x] Crear el panel principal y la navegación responsive inicial con total del periodo, últimos gastos, balance personal y accesos principales.
+- [ ] Probar los flujos completos del frontend contra el backend arrancado y revisar visualmente todos los estados en navegador.
 - [x] Pruebas de integración principales ejecutadas con evidencias en H2.
 - [ ] Docker integrado para backend/frontend/MySQL.
 - [ ] Documentación de despliegue y publicación real en Docker Hub.

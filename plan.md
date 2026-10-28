@@ -36,3 +36,15 @@ Cada fase se considera completada solo cuando el código correspondiente compila
 ## Diseño de interfaz
 
 La interfaz futura seguirá una estética clara y doméstica: fondo neutro, acentos verde azulado para acciones de confianza y estados económicos diferenciados con prudencia. Se priorizarán formularios legibles, tablas sencillas, estados vacíos explícitos y navegación responsive; no se añadirán elementos decorativos sin función.
+
+## Decisiones de la fase frontend
+
+Se desarrollará `convive-frontend/` como proyecto local independiente dentro de este repositorio, sin inicialización ni publicación mediante servicios gestionados. Se utilizarán Vue 3, JavaScript, Vite, Vue Router, Bootstrap, Bootstrap Icons y Axios. Axios usará la ruta relativa `/api` y Vite hará proxy local hacia el backend, evitando duplicar configuración de CORS durante el desarrollo.
+
+La sesión JWT se guardará en `localStorage` bajo una clave propia de Convive. Un interceptor de Axios añadirá el token a las peticiones privadas y reaccionará ante respuestas 401. Las rutas privadas exigirán sesión; las páginas de autenticación quedarán separadas del layout principal.
+
+Se consideraron tres estilos de interfaz: **panel doméstico sobrio** (0,06), **bento financiero colorido** (0,08) y **cuaderno comunitario cálido** (0,04). Se elige **panel doméstico sobrio**: fondo neutro, tarjetas con jerarquía clara, verde azulado como color propio, estados económicos diferenciados y formularios directos.
+
+Principios: claridad antes que decoración, datos económicos legibles, acciones destructivas confirmadas y responsive desde móvil. La navegación principal usará una barra lateral en escritorio y una barra compacta en pantallas pequeñas. La voz será directa y útil, por ejemplo: “Tu piso, claro y al día” y “Cada gasto en su sitio”.
+
+La primera entrega del frontend incluye autenticación, layout protegido, panel, piso, gastos, balances y perfil. La validación de integración contra el backend arrancado y la revisión visual completa quedan como siguiente paso antes de marcar la fase frontend como terminada.

@@ -4,7 +4,7 @@ Aplicación web para gestionar viviendas compartidas, gastos comunes, repartos y
 
 ## Estado actual
 
-La Fase 7 está implementada en el backend: existe un backend Spring Boot con entidades JPA, validaciones, autenticación BCrypt/JWT, gestión de pisos, membresías, gastos, reparto exacto de céntimos, balances, liquidación informativa, perfil, panel principal, rutas protegidas y pruebas de integración. Todavía no se han implementado el frontend ni el despliegue integrado.
+El backend de las fases de dominio está implementado y probado. Se ha iniciado el frontend local en Vue 3 con Vite, Bootstrap, Axios y Vue Router: incluye autenticación, layout protegido, panel, piso, gastos, balances y perfil. La integración en ejecución contra un backend/MySQL real y el despliegue integrado todavía están pendientes.
 
 La conexión real con MySQL está pendiente porque Docker no está instalado en este entorno. No se afirma que esa conexión esté probada.
 
@@ -68,6 +68,18 @@ Endpoints de perfil y panel:
 - `GET /api/dashboard?desde=&hasta=`
 
 El correo electrónico del perfil no se modifica. El panel devuelve el total del periodo, los cinco gastos más recientes y el balance personal.
+
+## Frontend local
+
+El frontend se encuentra en `convive-frontend/`. Para ejecutarlo junto al backend:
+
+```bash
+cd convive-frontend
+npm install
+npm run dev
+```
+
+Vite sirve la aplicación en `http://localhost:5173` y redirige `/api` a Spring Boot en `http://localhost:8080`. El build de producción se genera con `npm run build`.
 
 La prueba automática de autenticación verifica el registro, el hash BCrypt, el login, la validación JWT, el acceso protegido, los correos duplicados y las credenciales incorrectas.
 

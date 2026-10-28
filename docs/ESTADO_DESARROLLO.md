@@ -1,8 +1,8 @@
 # Convive — Estado de desarrollo
 
 **Fecha:** 2026-10-28
-**Fase:** 7 — Panel principal y perfil
-**Estado:** registro, BCrypt, login, JWT, pisos, membresías, gastos, reparto exacto, balances, liquidación informativa, perfil, panel principal, rutas protegidas y tratamiento de errores implementados y probados; frontend y conexión real con MySQL pendientes.
+**Fase:** 6 — Frontend Vue 3 inicial
+**Estado:** backend de dominio implementado y probado; frontend local Vue 3/Vite con Bootstrap, Axios, Vue Router, autenticación, layout protegido, panel, piso, gastos, balances y perfil creado y compilado; integración en ejecución y conexión real con MySQL pendientes.
 
 ## Verificado en el espacio de trabajo
 
@@ -22,12 +22,14 @@
 - `PruebaGastosTest` verifica creación, filtros, validación de pertenencia, permisos del propietario y reparto de `10,00 €` en `3,34 €`, `3,33 €` y `3,33 €`.
 - `PruebaBalancesTest` verifica pagado, asumido, balance, filtros por periodo, intervalos inválidos y liquidación determinista.
 - `PruebaPerfilPanelTest` verifica consulta y modificación exclusiva del nombre, protección JWT, total del panel, últimos gastos, balance personal y filtros por periodo.
+- `npm install` y `npm run build` del frontend terminan correctamente.
+- Vite responde en el puerto 5173 y sirve `public/manus-routes.json` con las siete rutas declaradas.
 - `PruebaMapeoPersistenciaTest` verifica el mapeo JPA de usuario, piso y membresía.
 - Se ha ejecutado `mvn -B package -DskipTests` y se ha generado el JAR ejecutable en `convive-backend/target/`.
 - No se ha iniciado MySQL porque Docker no está instalado.
 - No se ha probado una conexión real con la base de datos.
-- El frontend, Docker integrado y la conexión real con MySQL siguen pendientes.
+- La prueba completa frontend-backend en ejecución, Docker integrado y la conexión real con MySQL siguen pendientes.
 
 ## Próximo paso
 
-Crear el frontend Vue 3, integrar Axios y JWT, y probar la aplicación completa. La conexión real con MySQL y Docker sigue pendiente.
+Levantar backend y frontend conjuntamente, probar los flujos desde navegador y completar las pantallas/validaciones pendientes. La conexión real con MySQL y Docker sigue pendiente.
