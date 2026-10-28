@@ -47,6 +47,14 @@ Se impide que un usuario tenga más de un piso activo. El código de invitación
 
 El importe se convierte a céntimos mediante `longValueExact()`. Los céntimos sobrantes se asignan por identificador de usuario ascendente, garantizando que la suma de las participaciones coincida con el importe total.
 
+## Balances y liquidación informativa
+
+- `GET /api/balances?desde=&hasta=`: devuelve lo pagado, lo asumido y el balance de cada integrante activo.
+- `GET /api/balances/liquidacion?desde=&hasta=`: genera una propuesta determinista de pagos.
+- `GET /api/balances/settlement?desde=&hasta=`: alias compatible.
+
+La fórmula utilizada es `balance = importe pagado - importe asumido`. Los pagos sugeridos se calculan entre balances negativos y positivos, sin realizar transferencias.
+
 El secreto JWT se configura mediante `JWT_SECRET` y debe tener al menos 32 bytes. No se deben guardar secretos reales en Git.
 
 La conexión real con MySQL queda pendiente hasta disponer de Docker/MySQL activo.

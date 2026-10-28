@@ -21,13 +21,13 @@
 
 ## Fases siguientes
 
-- [ ] Registro, login, JWT, BCrypt y autorización backend.
-- [ ] Gestión de pisos, invitaciones y miembros.
-- [ ] Gastos, filtros y permisos de propietario.
-- [ ] Reparto exacto en céntimos, balances y liquidación.
+- [x] Registro, login, JWT, BCrypt y autorización backend.
+- [x] Gestión de pisos, invitaciones y miembros.
+- [x] Gastos, filtros y permisos de propietario.
+- [x] Reparto exacto en céntimos, balances y liquidación informativa.
 - [ ] Frontend Vue 3, Bootstrap y Axios.
 - [ ] Panel principal y navegación responsive.
-- [ ] Pruebas unitarias e integración ejecutadas con evidencias.
+- [x] Pruebas de integración principales ejecutadas con evidencias en H2.
 - [ ] Docker integrado para backend/frontend/MySQL.
 - [ ] Documentación de despliegue y publicación real en Docker Hub.
 
