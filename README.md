@@ -4,7 +4,7 @@ Aplicación web para gestionar viviendas compartidas, gastos comunes, repartos y
 
 ## Estado actual
 
-La Fase 5 está implementada en el backend: existe un backend Spring Boot con entidades JPA, validaciones, autenticación BCrypt/JWT, gestión de pisos, membresías, gastos, reparto exacto de céntimos, balances y liquidación informativa, rutas protegidas y pruebas de integración. Todavía no se han implementado el perfil, el panel principal, el frontend ni el despliegue integrado.
+La Fase 7 está implementada en el backend: existe un backend Spring Boot con entidades JPA, validaciones, autenticación BCrypt/JWT, gestión de pisos, membresías, gastos, reparto exacto de céntimos, balances, liquidación informativa, perfil, panel principal, rutas protegidas y pruebas de integración. Todavía no se han implementado el frontend ni el despliegue integrado.
 
 La conexión real con MySQL está pendiente porque Docker no está instalado en este entorno. No se afirma que esa conexión esté probada.
 
@@ -60,6 +60,14 @@ Endpoints de balances y liquidación disponibles:
 - `GET /api/balances/liquidacion?desde=&hasta=`
 
 La liquidación es únicamente informativa: propone pagos entre deudores y acreedores, pero no ejecuta transferencias bancarias. El alias `/api/balances/settlement` también está disponible para compatibilidad con el diseño inicial.
+
+Endpoints de perfil y panel:
+
+- `GET /api/users/me`
+- `PATCH /api/users/me` con `{ "nombre": "Nuevo nombre" }`.
+- `GET /api/dashboard?desde=&hasta=`
+
+El correo electrónico del perfil no se modifica. El panel devuelve el total del periodo, los cinco gastos más recientes y el balance personal.
 
 La prueba automática de autenticación verifica el registro, el hash BCrypt, el login, la validación JWT, el acceso protegido, los correos duplicados y las credenciales incorrectas.
 

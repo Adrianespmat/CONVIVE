@@ -88,7 +88,7 @@ Todos los endpoints `/api/**` salvo registro y login requieren `Authorization: B
 | `GET` | `/api/gastos/{gastoId}` | Miembro | Consultar detalle de gasto del piso. |
 | `PUT` | `/api/gastos/{gastoId}` | Propietario | Modificar gasto propio y recalcular reparto. |
 | `DELETE` | `/api/gastos/{gastoId}` | Propietario | Eliminar gasto propio. |
-| `GET` | `/api/dashboard?from=&to=` | Miembro | Total del periodo, últimos gastos y balance personal. |
+| `GET` | `/api/dashboard?desde=&hasta=` | Miembro | Total del periodo, últimos cinco gastos y balance personal. |
 | `GET` | `/api/balances?desde=&hasta=` | Miembro | Pagado, asumido y balance por integrante, opcionalmente por periodo. |
 | `GET` | `/api/balances/liquidacion?desde=&hasta=` | Miembro | Propuesta informativa de liquidación por periodo opcional. `/settlement` se mantiene como alias. |
 

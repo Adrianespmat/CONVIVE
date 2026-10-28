@@ -25,6 +25,8 @@
 - [x] Gestión de pisos, invitaciones y miembros.
 - [x] Gastos, filtros y permisos de propietario.
 - [x] Reparto exacto en céntimos, balances y liquidación informativa.
+- [x] Perfil de usuario: consulta y modificación del nombre.
+- [x] Panel principal: total del periodo, últimos gastos y balance personal.
 - [ ] Frontend Vue 3, Bootstrap y Axios.
 - [ ] Panel principal y navegación responsive.
 - [x] Pruebas de integración principales ejecutadas con evidencias en H2.

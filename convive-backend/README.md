@@ -55,6 +55,14 @@ El importe se convierte a céntimos mediante `longValueExact()`. Los céntimos s
 
 La fórmula utilizada es `balance = importe pagado - importe asumido`. Los pagos sugeridos se calculan entre balances negativos y positivos, sin realizar transferencias.
 
+## Perfil y panel principal
+
+- `GET /api/users/me`: consulta los datos públicos del usuario autenticado.
+- `PATCH /api/users/me`: modifica únicamente el nombre.
+- `GET /api/dashboard?desde=&hasta=`: devuelve el total del periodo, los cinco gastos más recientes y el balance personal.
+
+El correo permanece sin cambios porque es el identificador de acceso.
+
 El secreto JWT se configura mediante `JWT_SECRET` y debe tener al menos 32 bytes. No se deben guardar secretos reales en Git.
 
 La conexión real con MySQL queda pendiente hasta disponer de Docker/MySQL activo.
