@@ -23,6 +23,7 @@
 - `PruebaBalancesTest` verifica pagado, asumido, balance, filtros por periodo, intervalos inválidos y liquidación determinista.
 - `PruebaPerfilPanelTest` verifica consulta y modificación exclusiva del nombre, protección JWT, total del panel, últimos gastos, balance personal y filtros por periodo.
 - `npm install` y `npm run build` del frontend terminan correctamente.
+- La pantalla de gastos incluye filtros de fecha/categoría, selección de integrantes, alta, edición propia, reparto visible y eliminación confirmada; `npm run build` vuelve a terminar correctamente tras estos cambios.
 - Vite responde en el puerto 5173 y sirve `public/manus-routes.json` con las siete rutas declaradas.
 - `PruebaMapeoPersistenciaTest` verifica el mapeo JPA de usuario, piso y membresía.
 - Se ha ejecutado `mvn -B package -DskipTests` y se ha generado el JAR ejecutable en `convive-backend/target/`.

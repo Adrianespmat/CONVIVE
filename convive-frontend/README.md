@@ -31,3 +31,7 @@ npm run preview
 - `public/manus-routes.json`: manifiesto de rutas de la aplicación.
 
 El frontend es local y no utiliza servicios gestionados por Manus. El token JWT se guarda en `localStorage` para conectar las rutas privadas con el backend.
+
+## Gestión de gastos
+
+La pantalla de gastos utiliza los integrantes reales del piso para seleccionar pagador y participantes. Permite filtrar por fecha y categoría, registrar gastos, editar los gastos propios, consultar el reparto exacto devuelto por el backend y eliminar gastos mediante confirmación.
