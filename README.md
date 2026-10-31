@@ -51,6 +51,8 @@ Servicios y puertos predeterminados:
 
 No se debe subir `.env` a GitHub. Solo se versiona `.env.example` sin secretos reales.
 
+Si se utiliza una cuenta local `root`, se puede configurar `DB_USERNAME=root` y `DB_PASSWORD` con su contraseña en `.env`. Conviene mantener `MYSQL_USER` y `MYSQL_PASSWORD` con un usuario no administrador para la inicialización del contenedor. Las credenciales del `.env` local no se versionan.
+
 En Windows PowerShell, los comandos equivalentes serán:
 
 ```powershell

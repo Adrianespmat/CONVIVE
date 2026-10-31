@@ -27,8 +27,8 @@ services:
     restart: unless-stopped
     environment:
       DB_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-convive}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      DB_USERNAME: ${MYSQL_USER:-convive_user}
-      DB_PASSWORD: ${MYSQL_PASSWORD:-change_me_local}
+      DB_USERNAME: ${DB_USERNAME:-convive_user}
+      DB_PASSWORD: ${DB_PASSWORD:-change_me_local}
       DDL_AUTO: ${DDL_AUTO:-update}
       JWT_SECRET: ${JWT_SECRET:-clave-local-de-desarrollo-convive-cambiar-en-produccion-123456}
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-86400000}
