@@ -12,7 +12,8 @@ const enlaces = [
   { to: '/app/gastos', icono: 'bi-receipt', texto: 'Gastos' },
   { to: '/app/balances', icono: 'bi-arrow-left-right', texto: 'Balances' },
   { to: '/app/piso', icono: 'bi-house', texto: 'Mi piso' },
-  { to: '/app/perfil', icono: 'bi-person', texto: 'Perfil' }
+  { to: '/app/perfil', icono: 'bi-person', texto: 'Perfil' },
+  { to: '/app/configuracion', icono: 'bi-gear', texto: 'Configuración' }
 ]
 
 function salir() {

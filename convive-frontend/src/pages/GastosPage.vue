@@ -2,6 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import { conviveApi } from '../services/convive'
 import { mensajeError } from '../services/api'
+import { useConfiguracion } from '../stores/configuracion'
 
 const gastos = ref([])
 const integrantes = ref([])
@@ -11,6 +12,7 @@ const error = ref('')
 const mensaje = ref('')
 const gastoEditando = ref(null)
 const detalleAbierto = ref(null)
+const { configuracion } = useConfiguracion()
 
 const filtros = reactive({ desde: '', hasta: '', categoria: '' })
 const categorias = [
@@ -156,7 +158,7 @@ function cancelarEdicion() {
 }
 
 async function eliminar(gasto) {
-  if (!confirm(`¿Quieres eliminar el gasto “${gasto.concepto}”? Esta acción no se puede deshacer.`)) return
+  if (configuracion.confirmarEliminaciones && !confirm(`¿Quieres eliminar el gasto “${gasto.concepto}”? Esta acción no se puede deshacer.`)) return
   limpiarMensajes()
   try {
     await conviveApi.eliminarGasto(gasto.id)
@@ -258,7 +260,7 @@ onMounted(cargar)
 
   <section class="card p-3 p-md-4">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
-      <div><h2 class="h5 mb-1">Historial de gastos</h2><p class="small text-secondary mb-0">Consulta el reparto de cada gasto o filtra el periodo.</p></div>
+      <div><h2 class="h5 mb-1">Historial de gastos</h2><p v-if="configuracion.mostrarAyudas" class="small text-secondary mb-0">Consulta el reparto de cada gasto o filtra el periodo.</p></div>
       <button class="btn btn-sm btn-outline-secondary" type="button" @click="cargar"><i class="bi bi-arrow-clockwise me-1"></i>Actualizar</button>
     </div>
     <form class="row g-2 align-items-end mb-4" @submit.prevent="cargar">

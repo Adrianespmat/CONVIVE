@@ -14,7 +14,8 @@ const rutas = [
       { path: 'piso', component: () => import('../pages/PisoPage.vue') },
       { path: 'gastos', component: () => import('../pages/GastosPage.vue') },
       { path: 'balances', component: () => import('../pages/BalancesPage.vue') },
-      { path: 'perfil', component: () => import('../pages/PerfilPage.vue') }
+      { path: 'perfil', component: () => import('../pages/PerfilPage.vue') },
+      { path: 'configuracion', component: () => import('../pages/ConfiguracionPage.vue') }
     ]
   },
   { path: '/:pathMatch(.*)*', redirect: '/app' }

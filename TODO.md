@@ -35,6 +35,8 @@
 - [x] Completar la gestión avanzada de gastos en Vue: filtros por fecha y categoría, selección de pagador y participantes, edición de gastos propios, recálculo del reparto, detalle de cantidades asignadas y eliminación confirmada.
 - [x] Implementar el módulo de balances en Vue: filtros de periodo, resumen de importes pagados/asumidos, estados a favor o pendiente y tabla por integrante.
 - [x] Implementar la vista de liquidación informativa: pagos sugeridos, importe total, estado equilibrado y aviso de que no se ejecutan transferencias.
+- [x] Implementar el módulo de perfil en Vue conectado a `GET/PATCH /api/users/me`, manteniendo el correo de acceso en solo lectura y validando el nombre.
+- [x] Implementar la configuración local del frontend con preferencias de ayudas contextuales y confirmación de eliminaciones, persistidas en el navegador sin ampliar el backend.
 - [ ] Probar los flujos completos del frontend contra el backend arrancado y revisar visualmente todos los estados en navegador.
 - [x] Pruebas de integración principales ejecutadas con evidencias en H2.
 - [ ] Docker integrado para backend/frontend/MySQL.

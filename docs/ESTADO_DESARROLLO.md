@@ -25,6 +25,8 @@
 - `npm install` y `npm run build` del frontend terminan correctamente.
 - La pantalla de gastos incluye filtros de fecha/categoría, selección de integrantes, alta, edición propia, reparto visible y eliminación confirmada; `npm run build` vuelve a terminar correctamente tras estos cambios.
 - La pantalla de balances incluye filtros de periodo, resumen económico, tabla de balances por integrante y vista de liquidación informativa con pagos sugeridos; `npm run build` termina correctamente tras estos cambios.
+- El perfil frontend consulta y actualiza el nombre mediante el backend, mantiene el correo en solo lectura y muestra un resumen de cuenta.
+- La ruta de configuración permite guardar preferencias locales de ayudas contextuales y confirmación de eliminaciones; estas preferencias se aplican a la gestión de gastos sin añadir endpoints fuera del alcance aprobado.
 - Vite responde en el puerto 5173 y sirve `public/manus-routes.json` con las siete rutas declaradas.
 - `PruebaMapeoPersistenciaTest` verifica el mapeo JPA de usuario, piso y membresía.
 - Se ha ejecutado `mvn -B package -DskipTests` y se ha generado el JAR ejecutable en `convive-backend/target/`.

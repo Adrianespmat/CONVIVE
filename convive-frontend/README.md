@@ -39,3 +39,7 @@ La pantalla de gastos utiliza los integrantes reales del piso para seleccionar p
 ## Balances y liquidación
 
 La pantalla de balances permite consultar un periodo concreto, ver lo pagado, lo asumido y el balance de cada integrante, distinguiendo importes a favor y pendientes. La pestaña de liquidación muestra una propuesta informativa de pagos entre deudores y acreedores; no ejecuta transferencias.
+
+## Perfil y configuración
+
+`/app/perfil` consulta y actualiza el nombre mediante `GET/PATCH /api/users/me`. El correo de acceso se muestra en solo lectura. `/app/configuracion` contiene preferencias locales del navegador para mostrar ayudas contextuales y confirmar eliminaciones; se guardan en `localStorage` y no sustituyen a la fuente de verdad del backend.
