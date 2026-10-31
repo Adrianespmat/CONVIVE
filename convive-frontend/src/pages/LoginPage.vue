@@ -1,13 +1,17 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useAutenticacion } from '../stores/autenticacion'
 
 const router = useRouter()
 const { iniciarSesion, estado } = useAutenticacion()
 const formulario = reactive({ correo: '', contrasena: '' })
+const errorLocal = ref('')
 
 async function enviar() {
+  errorLocal.value = ''
+  formulario.correo = formulario.correo.trim()
+  if (!formulario.correo || !formulario.contrasena) { errorLocal.value = 'Introduce el correo y la contraseña.'; return }
   try { await iniciarSesion(formulario); router.push('/app') } catch { /* el store muestra el error */ }
 }
 </script>
@@ -16,7 +20,7 @@ async function enviar() {
   <main class="auth-shell">
     <section class="card auth-card p-4 p-md-5">
       <div class="mb-4"><span class="brand-mark">C</span><p class="text-uppercase small fw-bold text-teal mt-3 mb-1">Convive</p><h1 class="h3 mb-2">Tu piso, claro y al día</h1><p class="text-secondary mb-0">Inicia sesión para consultar tus gastos y balances.</p></div>
-      <div v-if="estado.error" class="alert alert-danger small">{{ estado.error }}</div>
+      <div v-if="errorLocal || estado.error" class="alert alert-danger small">{{ errorLocal || estado.error }}</div>
       <form @submit.prevent="enviar" novalidate>
         <label class="form-label" for="correo">Correo electrónico</label>
         <input id="correo" v-model="formulario.correo" class="form-control mb-3" type="email" autocomplete="email" required />

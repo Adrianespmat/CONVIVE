@@ -11,6 +11,10 @@ const errorLocal = ref('')
 
 async function enviar() {
   errorLocal.value = ''
+  formulario.nombre = formulario.nombre.trim()
+  formulario.correo = formulario.correo.trim()
+  if (!formulario.nombre || !formulario.correo || !formulario.contrasena) { errorLocal.value = 'Completa todos los campos.'; return }
+  if (formulario.contrasena.length < 8 || formulario.contrasena.length > 72) { errorLocal.value = 'La contraseña debe tener entre 8 y 72 caracteres.'; return }
   if (formulario.contrasena !== confirmacion.value) { errorLocal.value = 'Las contraseñas no coinciden.'; return }
   try { await registrar(formulario); router.push('/app') } catch { /* el store muestra el error */ }
 }

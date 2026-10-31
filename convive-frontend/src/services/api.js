@@ -25,5 +25,7 @@ api.interceptors.response.use(
 )
 
 export function mensajeError(error, fallback = 'No se ha podido completar la operación.') {
-  return error.response?.data?.mensaje || error.response?.data?.message || fallback
+  const datos = error.response?.data
+  const campos = datos?.campos ? Object.values(datos.campos).filter(Boolean) : []
+  return campos.length ? campos.join(' ') : (datos?.mensaje || datos?.message || fallback)
 }
