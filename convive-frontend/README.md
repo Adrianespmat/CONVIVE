@@ -35,3 +35,7 @@ El frontend es local y no utiliza servicios gestionados por Manus. El token JWT 
 ## Gestión de gastos
 
 La pantalla de gastos utiliza los integrantes reales del piso para seleccionar pagador y participantes. Permite filtrar por fecha y categoría, registrar gastos, editar los gastos propios, consultar el reparto exacto devuelto por el backend y eliminar gastos mediante confirmación.
+
+## Balances y liquidación
+
+La pantalla de balances permite consultar un periodo concreto, ver lo pagado, lo asumido y el balance de cada integrante, distinguiendo importes a favor y pendientes. La pestaña de liquidación muestra una propuesta informativa de pagos entre deudores y acreedores; no ejecuta transferencias.

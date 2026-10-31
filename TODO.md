@@ -33,6 +33,8 @@
 - [x] Crear las vistas iniciales de registro, inicio de sesión, creación/incorporación a piso, panel, piso e integrantes, gastos, balances, liquidación y perfil.
 - [x] Crear el panel principal y la navegación responsive inicial con total del periodo, últimos gastos, balance personal y accesos principales.
 - [x] Completar la gestión avanzada de gastos en Vue: filtros por fecha y categoría, selección de pagador y participantes, edición de gastos propios, recálculo del reparto, detalle de cantidades asignadas y eliminación confirmada.
+- [x] Implementar el módulo de balances en Vue: filtros de periodo, resumen de importes pagados/asumidos, estados a favor o pendiente y tabla por integrante.
+- [x] Implementar la vista de liquidación informativa: pagos sugeridos, importe total, estado equilibrado y aviso de que no se ejecutan transferencias.
 - [ ] Probar los flujos completos del frontend contra el backend arrancado y revisar visualmente todos los estados en navegador.
 - [x] Pruebas de integración principales ejecutadas con evidencias en H2.
 - [ ] Docker integrado para backend/frontend/MySQL.
