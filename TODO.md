@@ -40,7 +40,9 @@
 - [x] Comprobar desde navegador las pantallas públicas `/login` y `/registro` con Vite expuesto.
 - [ ] Probar los flujos completos del frontend contra el backend arrancado y revisar visualmente todos los estados en navegador.
 - [x] Pruebas de integración principales ejecutadas con evidencias en H2.
-- [ ] Docker integrado para backend/frontend/MySQL.
+- [x] Crear Dockerfile multi-etapa para backend Java 17 y Dockerfile multi-etapa para frontend Vue servido por Nginx.
+- [x] Actualizar Docker Compose con MySQL, backend, frontend, healthcheck, volumen persistente y proxy `/api` interno.
+- [ ] Validar `docker compose up --build` y los flujos completos con los tres contenedores en ejecución.
 - [ ] Documentación de despliegue y publicación real en Docker Hub.
 
 ## Limitaciones verificadas

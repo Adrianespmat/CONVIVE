@@ -20,6 +20,37 @@ La conexión real con MySQL está pendiente porque Docker no está instalado en 
 2. Arrancar MySQL con `docker compose up -d mysql` cuando Docker esté instalado.
 3. Ejecutar el backend desde `convive-backend/` con Maven cuando Maven esté disponible.
 
+## Despliegue completo con Docker Compose
+
+La aplicación dispone de Dockerfiles para backend y frontend. Con Docker Desktop instalado, desde la raíz del proyecto:
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+La aplicación queda accesible en `http://localhost` (o en el puerto indicado por `FRONTEND_PORT`). El frontend Nginx sirve la SPA y reenvía `/api` al backend Spring Boot dentro de la red Docker. El backend utiliza MySQL mediante el nombre de servicio `mysql` y espera a que el healthcheck de la base de datos sea correcto.
+
+Para detener los servicios:
+
+```bash
+docker compose down
+```
+
+Para detenerlos y eliminar también los datos persistidos de MySQL:
+
+```bash
+docker compose down -v
+```
+
+Servicios y puertos predeterminados:
+
+- Frontend: `http://localhost` (`FRONTEND_PORT=80`).
+- Backend REST: `http://localhost:8080/api` (`BACKEND_PORT=8080`).
+- MySQL: `localhost:3306` (`MYSQL_PORT=3306`).
+
+No se debe subir `.env` a GitHub. Solo se versiona `.env.example` sin secretos reales.
+
 En Windows PowerShell, los comandos equivalentes serán:
 
 ```powershell

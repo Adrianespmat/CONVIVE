@@ -34,6 +34,7 @@
 - No se ha iniciado MySQL porque Docker no está instalado y no existe un servicio MySQL local.
 - Se intentó arrancar el backend con `mvn spring-boot:run`, pero falló al no poder abrir la conexión JDBC de MySQL en `localhost:3306`.
 - No se ha probado una conexión real con la base de datos.
+- Se han creado los Dockerfiles multi-etapa del backend y frontend, el proxy Nginx y el Compose de tres servicios; la compilación Docker no se ha ejecutado porque Docker no está instalado en este entorno.
 - La prueba completa frontend-backend en ejecución, Docker integrado y la conexión real con MySQL siguen pendientes.
 
 ## Próximo paso

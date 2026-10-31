@@ -15,6 +15,10 @@ La aplicación se sirve en `http://localhost:5173` y redirige las peticiones `/a
 
 En el entorno de previsualización HTTPS, Vite permite los hosts `*.us5.manus.computer`. Para que las rutas autenticadas funcionen, el backend debe estar arrancado y conectado a MySQL en `localhost:3306`.
 
+## Ejecución con Docker
+
+El `Dockerfile` compila Vue con Node 22 y sirve el resultado con Nginx. La configuración `nginx.conf` aplica fallback de SPA y reenvía las peticiones `/api` al servicio Docker `backend`. Desde la raíz del proyecto se ejecuta con `docker compose up --build` y se accede a `http://localhost`.
+
 ## Build
 
 ```bash

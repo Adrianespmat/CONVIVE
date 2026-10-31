@@ -10,6 +10,10 @@ Backend Spring Boot de Convive. Esta fase contiene la configuración Maven, las 
 - MySQL Connector/J: gestionado por Spring Boot 3.4.5.
 - Hibernate: gestionado por Spring Boot 3.4.5.
 
+## Ejecución con Docker
+
+El `Dockerfile` compila el backend con Maven y Java 17 en una etapa independiente y ejecuta el JAR con una imagen JRE 17 sin privilegios de root. Desde la raíz del proyecto se levanta mediante `docker compose up --build`.
+
 ## Comprobación ejecutada
 
 Desde este directorio:

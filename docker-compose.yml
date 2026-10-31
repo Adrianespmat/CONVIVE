@@ -17,6 +17,40 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 20s
+
+  backend:
+    build:
+      context: ./convive-backend
+      dockerfile: Dockerfile
+    container_name: convive-backend
+    restart: unless-stopped
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-convive}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      DB_USERNAME: ${MYSQL_USER:-convive_user}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-change_me_local}
+      DDL_AUTO: ${DDL_AUTO:-update}
+      JWT_SECRET: ${JWT_SECRET:-clave-local-de-desarrollo-convive-cambiar-en-produccion-123456}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-86400000}
+      SERVER_PORT: 8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    expose:
+      - "8080"
+
+  frontend:
+    build:
+      context: ./convive-frontend
+      dockerfile: Dockerfile
+    container_name: convive-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
 
 volumes:
   convive-mysql-data:
