@@ -13,6 +13,8 @@ npm run dev
 
 La aplicación se sirve en `http://localhost:5173` y redirige las peticiones `/api` al backend Spring Boot en `http://localhost:8080` mediante Vite.
 
+En el entorno de previsualización HTTPS, Vite permite los hosts `*.us5.manus.computer`. Para que las rutas autenticadas funcionen, el backend debe estar arrancado y conectado a MySQL en `localhost:3306`.
+
 ## Build
 
 ```bash

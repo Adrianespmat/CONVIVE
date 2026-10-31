@@ -1,6 +1,6 @@
 # Convive — Estado de desarrollo
 
-**Fecha:** 2026-10-28
+**Fecha:** 2026-10-31
 **Fase:** 6 — Frontend Vue 3 inicial
 **Estado:** backend de dominio implementado y probado; frontend local Vue 3/Vite con Bootstrap, Axios, Vue Router, autenticación, layout protegido, panel, piso, gastos, balances y perfil creado y compilado; integración en ejecución y conexión real con MySQL pendientes.
 
@@ -28,9 +28,11 @@
 - El perfil frontend consulta y actualiza el nombre mediante el backend, mantiene el correo en solo lectura y muestra un resumen de cuenta.
 - La ruta de configuración permite guardar preferencias locales de ayudas contextuales y confirmación de eliminaciones; estas preferencias se aplican a la gestión de gastos sin añadir endpoints fuera del alcance aprobado.
 - Vite responde en el puerto 5173 y sirve `public/manus-routes.json` con las siete rutas declaradas.
+- Vite permite el host HTTPS de previsualización y desde navegador se han comprobado visualmente `/login` y `/registro`.
 - `PruebaMapeoPersistenciaTest` verifica el mapeo JPA de usuario, piso y membresía.
 - Se ha ejecutado `mvn -B package -DskipTests` y se ha generado el JAR ejecutable en `convive-backend/target/`.
-- No se ha iniciado MySQL porque Docker no está instalado.
+- No se ha iniciado MySQL porque Docker no está instalado y no existe un servicio MySQL local.
+- Se intentó arrancar el backend con `mvn spring-boot:run`, pero falló al no poder abrir la conexión JDBC de MySQL en `localhost:3306`.
 - No se ha probado una conexión real con la base de datos.
 - La prueba completa frontend-backend en ejecución, Docker integrado y la conexión real con MySQL siguen pendientes.
 
