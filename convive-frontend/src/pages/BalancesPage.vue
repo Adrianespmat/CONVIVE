@@ -2,6 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import { conviveApi } from '../services/convive'
 import { mensajeError } from '../services/api'
+import { useAutenticacion } from '../stores/autenticacion'
 
 const datos = ref(null)
 const liquidacion = ref(null)
@@ -9,12 +10,13 @@ const cargando = ref(true)
 const error = ref('')
 const pestana = ref('balances')
 const filtros = reactive({ desde: '', hasta: '' })
+const { estado } = useAutenticacion()
 
 const balancesOrdenados = computed(() => datos.value?.balances || [])
 const acreedores = computed(() => balancesOrdenados.value.filter((balance) => Number(balance.balance) > 0))
 const deudores = computed(() => balancesOrdenados.value.filter((balance) => Number(balance.balance) < 0))
-const totalPagado = computed(() => balancesOrdenados.value.reduce((total, balance) => total + Number(balance.importePagado || 0), 0))
 const totalAsumido = computed(() => balancesOrdenados.value.reduce((total, balance) => total + Number(balance.importeAsumido || 0), 0))
+const balancePersonal = computed(() => balancesOrdenados.value.find((balance) => Number(balance.usuarioId) === Number(estado.usuario?.id)))
 const hayFiltros = computed(() => Boolean(filtros.desde || filtros.hasta))
 
 function parametrosFiltro() {
@@ -108,8 +110,8 @@ onMounted(cargar)
   <div v-if="cargando" class="text-center text-secondary py-5"><span class="spinner-border spinner-border-sm me-2"></span>Calculando balances…</div>
   <template v-else-if="datos && liquidacion">
     <section class="row g-3 mb-4">
-      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Gasto total de el piso</div><div class="metric-value">{{ formatoImporte(totalAsumido) }}</div><div class="small text-secondary mt-2">Suma de las partes individuales</div></div></div>
-      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100 bg-mint"><div class="small text-secondary mb-2">Pagado por integrantes</div><div class="metric-value text-teal">{{ formatoImporte(totalPagado) }}</div><div class="small text-secondary mt-2">Adelantos registrados en el periodo</div></div></div>
+      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Gasto asumido por el piso</div><div class="metric-value">{{ formatoImporte(totalAsumido) }}</div><div class="small text-secondary mt-2">Suma de las partes individuales</div></div></div>
+      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100 bg-mint"><div class="small text-secondary mb-2">Pagado por integrantes</div><div class="metric-value text-teal">{{ formatoImporte(balancePersonal?.importeAsumido) }}</div><div class="small text-secondary mt-2">Lo que debes asumir tú en este periodo</div></div></div>
       <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Pagos sugeridos</div><div class="metric-value">{{ liquidacion.pagos.length }}</div><div class="small text-secondary mt-2">{{ formatoImporte(liquidacion.importeTotal) }} a compensar</div></div></div>
     </section>
 
@@ -121,7 +123,7 @@ onMounted(cargar)
     <section v-if="pestana === 'balances'" class="card p-3 p-md-4">
       <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3"><div><h2 class="h5 mb-1">Balance por integrante</h2><p class="small text-secondary mb-0">Balance = importe pagado − importe que corresponde asumir.</p></div><span class="small text-secondary">{{ balancesOrdenados.length }} integrante{{ balancesOrdenados.length === 1 ? '' : 's' }}</span></div>
       <div v-if="!balancesOrdenados.length" class="empty-state text-center text-secondary py-5"><i class="bi bi-bar-chart display-6 d-block mb-3"></i>No hay integrantes o gastos en este periodo.</div>
-      <div v-else class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>Integrante</th><th class="text-end">Ha pagado</th><th class="text-end">Debe asumir</th><th class="text-end">Balance</th></tr></thead><tbody><tr v-for="balance in balancesOrdenados" :key="balance.usuarioId"><td><strong>{{ balance.nombre }}</strong><span :class="['d-block small', claseBalance(balance.balance)]">{{ etiquetaBalance(balance.balance) }}</span></td><td class="text-end">{{ formatoImporte(balance.importePagado) }}</td><td class="text-end">{{ formatoImporte(balance.importeAsumido) }}</td><td :class="['text-end fw-bold fs-6', claseBalance(balance.balance)]">{{ Number(balance.balance) > 0 ? '+' : '' }}{{ formatoImporte(balance.balance) }}</td></tr></tbody></table></div>
+      <div v-else class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>Integrante</th><th class="text-end">Ha pagado</th><th class="text-end">Balance</th></tr></thead><tbody><tr v-for="balance in balancesOrdenados" :key="balance.usuarioId"><td><strong>{{ balance.nombre }}</strong><span :class="['d-block small', claseBalance(balance.balance)]">{{ etiquetaBalance(balance.balance) }}</span></td><td class="text-end">{{ formatoImporte(balance.importePagado) }}</td><td :class="['text-end fw-bold fs-6', claseBalance(balance.balance)]">{{ Number(balance.balance) > 0 ? '+' : '' }}{{ formatoImporte(balance.balance) }}</td></tr></tbody></table></div>
       <div class="d-flex flex-wrap gap-3 small text-secondary mt-4"><span><i class="bi bi-circle-fill text-success me-1"></i>A favor: {{ acreedores.length }}</span><span><i class="bi bi-circle-fill text-danger me-1"></i>Pendientes: {{ deudores.length }}</span></div>
     </section>
 
