@@ -13,6 +13,7 @@ const filtros = reactive({ desde: '', hasta: '' })
 const balancesOrdenados = computed(() => datos.value?.balances || [])
 const acreedores = computed(() => balancesOrdenados.value.filter((balance) => Number(balance.balance) > 0))
 const deudores = computed(() => balancesOrdenados.value.filter((balance) => Number(balance.balance) < 0))
+const totalPagado = computed(() => balancesOrdenados.value.reduce((total, balance) => total + Number(balance.importePagado || 0), 0))
 const totalAsumido = computed(() => balancesOrdenados.value.reduce((total, balance) => total + Number(balance.importeAsumido || 0), 0))
 const hayFiltros = computed(() => Boolean(filtros.desde || filtros.hasta))
 
@@ -108,6 +109,7 @@ onMounted(cargar)
   <template v-else-if="datos && liquidacion">
     <section class="row g-3 mb-4">
       <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Gasto asumido por el piso</div><div class="metric-value">{{ formatoImporte(totalAsumido) }}</div><div class="small text-secondary mt-2">Suma de las partes individuales</div></div></div>
+      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100 bg-mint"><div class="small text-secondary mb-2">Pagado por integrantes</div><div class="metric-value text-teal">{{ formatoImporte(totalPagado) }}</div><div class="small text-secondary mt-2">Adelantos registrados en el periodo</div></div></div>
       <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Pagos sugeridos</div><div class="metric-value">{{ liquidacion.pagos.length }}</div><div class="small text-secondary mt-2">{{ formatoImporte(liquidacion.importeTotal) }} a compensar</div></div></div>
     </section>
 
