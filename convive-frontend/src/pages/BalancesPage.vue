@@ -108,7 +108,7 @@ onMounted(cargar)
   <div v-if="cargando" class="text-center text-secondary py-5"><span class="spinner-border spinner-border-sm me-2"></span>Calculando balances…</div>
   <template v-else-if="datos && liquidacion">
     <section class="row g-3 mb-4">
-      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Gasto asumido por el piso</div><div class="metric-value">{{ formatoImporte(totalAsumido) }}</div><div class="small text-secondary mt-2">Suma de las partes individuales</div></div></div>
+      <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Gasto total de el piso</div><div class="metric-value">{{ formatoImporte(totalAsumido) }}</div><div class="small text-secondary mt-2">Suma de las partes individuales</div></div></div>
       <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100 bg-mint"><div class="small text-secondary mb-2">Pagado por integrantes</div><div class="metric-value text-teal">{{ formatoImporte(totalPagado) }}</div><div class="small text-secondary mt-2">Adelantos registrados en el periodo</div></div></div>
       <div class="col-12 col-md-4"><div class="card metric-card p-4 h-100"><div class="small text-secondary mb-2">Pagos sugeridos</div><div class="metric-value">{{ liquidacion.pagos.length }}</div><div class="small text-secondary mt-2">{{ formatoImporte(liquidacion.importeTotal) }} a compensar</div></div></div>
     </section>
