@@ -3,6 +3,7 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import { conviveApi } from '../services/convive'
 import { mensajeError } from '../services/api'
 import { useConfiguracion } from '../stores/configuracion'
+import { useAutenticacion } from '../stores/autenticacion'
 
 const gastos = ref([])
 const integrantes = ref([])
@@ -13,6 +14,7 @@ const mensaje = ref('')
 const gastoEditando = ref(null)
 const detalleAbierto = ref(null)
 const { configuracion } = useConfiguracion()
+const { estado } = useAutenticacion()
 
 const filtros = reactive({ desde: '', hasta: '', categoria: '' })
 const categorias = [
@@ -37,6 +39,7 @@ function formularioInicial() {
 
 const formulario = reactive(formularioInicial())
 const esEdicion = computed(() => gastoEditando.value !== null)
+const idUsuarioActual = computed(() => Number(estado.usuario?.id))
 const participantesSeleccionados = computed(() => formulario.participantesUsuarioIds.length)
 const importePorPersona = computed(() => {
   const importe = Number(formulario.importe)
@@ -140,6 +143,7 @@ async function guardar() {
 }
 
 function editar(gasto) {
+  if (Number(gasto.creadoPorUsuarioId) !== idUsuarioActual.value) return
   limpiarMensajes()
   gastoEditando.value = gasto
   formulario.concepto = gasto.concepto
@@ -158,6 +162,7 @@ function cancelarEdicion() {
 }
 
 async function eliminar(gasto) {
+  if (Number(gasto.creadoPorUsuarioId) !== idUsuarioActual.value) return
   if (configuracion.confirmarEliminaciones && !confirm(`¿Quieres eliminar el gasto “${gasto.concepto}”? Esta acción no se puede deshacer.`)) return
   limpiarMensajes()
   try {
@@ -280,7 +285,7 @@ onMounted(cargar)
             <tr>
               <td><button class="btn btn-link p-0 text-start fw-semibold text-decoration-none" type="button" @click="alternarDetalle(gasto)">{{ gasto.concepto }} <i :class="['bi small ms-1', detalleAbierto?.id === gasto.id ? 'bi-chevron-up' : 'bi-chevron-down']"></i></button></td>
               <td>{{ formatoFecha(gasto.fecha) }}</td><td><span class="badge text-bg-light">{{ etiquetaCategoria(gasto.categoria) }}</span></td><td>{{ gasto.pagadorNombre }}</td><td class="text-end fw-semibold">{{ formatoImporte(gasto.importe) }}</td>
-              <td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-secondary me-1" type="button" title="Editar" @click="editar(gasto)"><i class="bi bi-pencil"></i></button><button class="btn btn-sm btn-outline-danger" type="button" title="Eliminar" @click="eliminar(gasto)"><i class="bi bi-trash"></i></button></td>
+              <td class="text-end text-nowrap"><template v-if="Number(gasto.creadoPorUsuarioId) === idUsuarioActual"><button class="btn btn-sm btn-outline-secondary me-1" type="button" title="Editar" @click="editar(gasto)"><i class="bi bi-pencil"></i></button><button class="btn btn-sm btn-outline-danger" type="button" title="Eliminar" @click="eliminar(gasto)"><i class="bi bi-trash"></i></button></template><span v-else class="small text-secondary">Solo lectura</span></td>
             </tr>
             <tr v-if="detalleAbierto?.id === gasto.id" class="expense-detail-row"><td colspan="6"><div class="p-3"><div class="small fw-semibold text-secondary mb-2">Reparto entre participantes</div><div class="row g-2"><div v-for="participante in gasto.participantes" :key="participante.usuarioId" class="col-12 col-sm-6 col-lg-4"><div class="d-flex justify-content-between bg-white border rounded p-2"><span>{{ participante.nombre }}</span><strong>{{ formatoImporte(participante.importeAsignado) }}</strong></div></div></div></div></td></tr>
           </template>
