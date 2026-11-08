@@ -140,16 +140,4 @@ Gasto ..> CategoriaGasto : utiliza
 ResumenBalance ..> Usuario : resume
 PropuestaLiquidacion "1" *-- "0..*" PagoLiquidacion : contiene
 PagoLiquidacion ..> Usuario : deudor / acreedor
-
-note right of Gasto
-  El importe se reparte en céntimos
-  mediante BigDecimal.
-  La suma de las partes coincide
-  siempre con el importe total.
-end note
-
-note bottom of PropuestaLiquidacion
-  Es únicamente informativa.
-  No ejecuta transferencias bancarias.
-end note
 @enduml
