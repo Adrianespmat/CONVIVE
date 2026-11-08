@@ -1,0 +1,155 @@
+@startuml diagrama-clases-convive
+' Diagrama de clases del dominio de Convive
+left to right direction
+skinparam backgroundColor #1B1B1B
+skinparam classBackgroundColor #252525
+skinparam classBorderColor #E5E7EB
+skinparam classFontColor #FFFFFF
+skinparam classAttributeFontColor #F3F4F6
+skinparam classMethodFontColor #F3F4F6
+skinparam ArrowColor #FFFFFF
+skinparam ArrowFontColor #FFFFFF
+skinparam stereotypeCBackgroundColor #3B2448
+skinparam stereotypeCBorderColor #C084FC
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam classFontSize 14
+skinparam classAttributeFontSize 11
+skinparam classMethodFontSize 11
+hide empty members
+
+class Usuario {
+  - id: Long
+  - nombre: String
+  - correo: String
+  - hashContrasena: String
+  - fechaCreacion: Instant
+  --
+  + obtenerId(): Long
+  + obtenerNombre(): String
+  + obtenerCorreo(): String
+  + modificarNombre(nombre: String): void
+  + obtenerMembresias(): List<Membresia>
+}
+
+class Piso {
+  - id: Long
+  - nombre: String
+  - direccion: String
+  - codigoInvitacion: String
+  - activo: Boolean
+  - fechaCreacion: Instant
+  --
+  + obtenerId(): Long
+  + obtenerNombre(): String
+  + modificarDatos(nombre: String, direccion: String): void
+  + obtenerCodigoInvitacion(): String
+}
+
+class Membresia {
+  - id: Long
+  - usuario: Usuario
+  - piso: Piso
+  - rol: Rol
+  - activo: Boolean
+  - fechaAlta: LocalDate
+  - fechaBaja: LocalDate
+  --
+  + esAdministrador(): Boolean
+  + estaActiva(): Boolean
+  + darDeBaja(): void
+}
+
+class Gasto {
+  - id: Long
+  - piso: Piso
+  - creadoPor: Usuario
+  - pagador: Usuario
+  - concepto: String
+  - importe: BigDecimal
+  - fecha: LocalDate
+  - categoria: CategoriaGasto
+  - fechaCreacion: Instant
+  - fechaActualizacion: Instant
+  --
+  + obtenerImporte(): BigDecimal
+  + obtenerParticipantes(): List<ParticipanteGasto>
+  + modificarDatos(...): void
+  + recalcularReparto(): void
+}
+
+class ParticipanteGasto {
+  - id: Long
+  - gasto: Gasto
+  - usuario: Usuario
+  - importeAsignado: BigDecimal
+  - ordenParticipante: Integer
+  --
+  + obtenerImporteAsignado(): BigDecimal
+  + obtenerUsuario(): Usuario
+}
+
+enum Rol {
+  ADMINISTRADOR
+  MIEMBRO
+}
+
+enum CategoriaGasto {
+  ALQUILER
+  ALIMENTACION
+  ELECTRICIDAD
+  AGUA
+  INTERNET
+  OTROS
+}
+
+class ResumenBalance <<DTO>> {
+  - usuarioId: Long
+  - totalPagado: BigDecimal
+  - totalAsumido: BigDecimal
+  - balance: BigDecimal
+  --
+  + calcularBalance(): BigDecimal
+}
+
+class PropuestaLiquidacion <<DTO>> {
+  - pagos: List<PagoLiquidacion>
+  - soloInformativa: Boolean
+  --
+  + generarPropuesta(): List<PagoLiquidacion>
+}
+
+class PagoLiquidacion <<DTO>> {
+  - deudorUsuarioId: Long
+  - acreedorUsuarioId: Long
+  - importe: BigDecimal
+  --
+  + obtenerImporte(): BigDecimal
+}
+
+Usuario "1" -- "0..*" Membresia : tiene
+Piso "1" -- "1..*" Membresia : contiene
+Usuario "1" -- "0..*" Gasto : crea
+Usuario "1" -- "0..*" Gasto : paga
+Piso "1" -- "0..*" Gasto : contiene
+Gasto "1" *-- "1..*" ParticipanteGasto : se reparte en
+Usuario "1" -- "0..*" ParticipanteGasto : participa
+Membresia ..> Rol : utiliza
+Gasto ..> CategoriaGasto : utiliza
+ResumenBalance ..> Usuario : resume
+PropuestaLiquidacion "1" *-- "0..*" PagoLiquidacion : contiene
+PagoLiquidacion ..> Usuario : deudor / acreedor
+
+note right of Gasto
+  El importe se reparte en céntimos
+  mediante BigDecimal.
+  La suma de las partes coincide
+  siempre con el importe total.
+end note
+
+note bottom of PropuestaLiquidacion
+  Es únicamente informativa.
+  No ejecuta transferencias bancarias.
+end note
+@enduml
