@@ -1,0 +1,82 @@
+@startuml modelo-entidad-relacion-convive
+' Modelo entidad-relación de la base de datos MySQL de Convive
+left to right direction
+skinparam backgroundColor #1B1B1B
+skinparam entity {
+  BackgroundColor #252525
+  BorderColor #E5E7EB
+  FontColor #FFFFFF
+  AttributeFontColor #F3F4F6
+  FontSize 13
+}
+skinparam ArrowColor #FFFFFF
+skinparam ArrowFontColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam linetype ortho
+skinparam shadowing false
+
+entity usuarios {
+  * id: BIGINT <<PK>>
+  --
+  * nombre: VARCHAR(100)
+  * correo: VARCHAR(180) <<UK>>
+  * hash_contrasena: VARCHAR(255)
+  * fecha_creacion: TIMESTAMP
+}
+
+entity pisos {
+  * id: BIGINT <<PK>>
+  --
+  * nombre: VARCHAR(120)
+  * direccion: VARCHAR(255)
+  * codigo_invitacion: VARCHAR(32) <<UK>>
+  * activo: BOOLEAN
+  * fecha_creacion: TIMESTAMP
+}
+
+entity membresias {
+  * id: BIGINT <<PK>>
+  --
+  * usuario_id: BIGINT <<FK>>
+  * piso_id: BIGINT <<FK>>
+  * rol: VARCHAR(20)
+  * activo: BOOLEAN
+  * fecha_alta: DATE
+  fecha_baja: DATE
+  .. restricción única ..
+  UK(usuario_id, piso_id)
+}
+
+entity gastos {
+  * id: BIGINT <<PK>>
+  --
+  * piso_id: BIGINT <<FK>>
+  * creado_por_usuario_id: BIGINT <<FK>>
+  * pagador_usuario_id: BIGINT <<FK>>
+  * concepto: VARCHAR(180)
+  * importe: DECIMAL(12,2)
+  * fecha_gasto: DATE
+  * categoria: VARCHAR(20)
+  * fecha_creacion: TIMESTAMP
+  * fecha_actualizacion: TIMESTAMP
+}
+
+entity participantes_gasto {
+  * id: BIGINT <<PK>>
+  --
+  * gasto_id: BIGINT <<FK>>
+  * usuario_id: BIGINT <<FK>>
+  * importe_asignado: DECIMAL(12,2)
+  * orden_participante: INT
+  .. restricción única ..
+  UK(gasto_id, usuario_id)
+}
+
+usuarios ||--o{ membresias : "tiene"
+pisos ||--|{ membresias : "contiene"
+pisos ||--o{ gastos : "contiene"
+usuarios ||--o{ gastos : "crea"
+usuarios ||--o{ gastos : "paga"
+gastos ||--|{ participantes_gasto : "se reparte en"
+usuarios ||--o{ participantes_gasto : "participa"
+@enduml
